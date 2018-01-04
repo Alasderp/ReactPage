@@ -2,30 +2,40 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import song from './National Anthem of USSR.mp3'
 import './App.css';
+import $ from 'jquery'; 
 
 class App extends Component {
 
   constructor() {
     super();
     
-    //Array of dog objects - implemented as a state
+    var baseURL = "http://localhost:3001/";
+    let url = baseURL + "api/dog";
+
+    //Array of dog objects
+    var dogArray = [];
+
     this.state = {
-      stateText: 
-      [
-        {
-            id:1,
-            name:"Koshi",
-            age:12,
-            species:"Collie-Poodle"
-        },
-        {
-          id:2,
-          name:"Rosha",
-          age:14,
-          species:"Labrador"          
-        }
-      ]
+      stateText:dogArray
     }
+
+    $.getJSON(url,   
+        
+        function(jsonData){
+            //Loop through json data returned by server
+            for(let x in jsonData){
+                    let payload = {
+                      "id":jsonData[x].id,
+                      "name":jsonData[x].name,
+                      "age":jsonData[x].age,
+                      "species":jsonData[x].species
+                    };
+                    dogArray.push(payload);
+            }
+        this.setState({stateText: dogArray})
+        }.bind(this)
+    );
+
   }
 
     addDogBtn() {
