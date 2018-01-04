@@ -54,6 +54,19 @@ class App extends Component {
 
     }
 
+    deleteDog(){
+
+      let id = $("#idInput").val();
+      var url = this.props.baseURL + "api/dog/delete/" + id
+      var settings={type:"DELETE"};
+          
+	    $.ajax(
+        url,
+        settings
+      );
+
+    }
+
   render() {
     return (
       <div className="App">
@@ -83,7 +96,7 @@ class App extends Component {
         <input type="button" id="addDog" value="Add dog" onClick={this.addDogBtn.bind(this)}/><br/>
         <input type="button" id="getDog" value="Get Dog"/><br/>
         <input type="button" id="updateDog" value="Edit Dog"/><br/>
-        <input type="button" id="deleteDog" value="Delete Dog"/><br/>
+        <input type="button" id="deleteDog" value="Delete Dog" onClick={this.deleteDog.bind(this)}/><br/>
         <input type="button" id="allDogs" onClick={this.allDogs.bind(this)} value="All Dogs"/><br/>
         
         <div id="dogContainer">
