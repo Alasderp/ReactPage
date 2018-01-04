@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.png';
 import song from './National Anthem of USSR.mp3'
-import sound from './Call of the Gigguk.mp3'
 import './App.css';
-import './button.css';
 
 class App extends Component {
 
@@ -51,12 +49,6 @@ class App extends Component {
 
     }
 
-    playSound() {
-        let x = document.createElement("AUDIO");
-        x.src = sound
-        x.play();
-    }
-
   render() {
     return (
       <div className="App">
@@ -93,10 +85,6 @@ class App extends Component {
                 <p key = {dog.id}>Name: {dog.name} Age: {dog.age} Breed: {dog.species}</p>
               ))
           }
-        </div>
-
-        <div id="buttonHolder">  
-          <a className="button" onClick={this.playSound}>Press Me</a>
         </div>
 
       </div>
