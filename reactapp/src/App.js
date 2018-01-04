@@ -17,8 +17,7 @@ class App extends Component {
 
   allDogs(){
 
-    //Copy state into temp array
-    let dogArray = this.state.stateText.slice();
+    let dogArray = [];
 
     let url = this.props.baseURL + "api/dog";
 
@@ -49,14 +48,9 @@ class App extends Component {
         "species":breed
       };
       
-      //Copy state into temp array
-      let tempArray = this.state.stateText.slice();
+    let url = this.props.baseURL + "api/dog/add";
 
-      //Mutate temp array
-      tempArray.push(payload);
-
-      //Set state to temp array
-      this.setState({stateText: tempArray})
+    $.post(url,payload,this.allDogs());
 
     }
 
