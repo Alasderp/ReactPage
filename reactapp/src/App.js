@@ -7,6 +7,8 @@ class App extends Component {
 
   constructor() {
     super();
+    
+    //Array of dog objects - implemented as a state
     this.state = {
       stateText: 
       [
@@ -41,10 +43,13 @@ class App extends Component {
         "species":breed
       };
       
+      //Copy state into temp array
       let tempArray = this.state.stateText.slice();
 
+      //Mutate temp array
       tempArray.push(payload);
 
+      //Set state to temp array
       this.setState({stateText: tempArray})
 
     }
@@ -58,9 +63,11 @@ class App extends Component {
         </header>
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
+          {/*Access the property passed down and place it on page*/}
           <br/>{this.props.exampleProp}
           </p>
           <br/>
+
         <audio controls>
           <source src={song} type="audio/mpeg"/>
         </audio>
