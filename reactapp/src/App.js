@@ -8,34 +8,30 @@ class App extends Component {
 
   constructor() {
     super();
-    
-    var baseURL = "http://localhost:3001/";
-    let url = baseURL + "api/dog";
-
-    //Array of dog objects
-    var dogArray = [];
 
     this.state = {
-      stateText:dogArray
+      stateText:[]
     }
+
+  }
+
+  allDogs(){
+
+    //Copy state into temp array
+    let dogArray = this.state.stateText.slice();
+
+    let url = this.props.baseURL + "api/dog";
 
     $.getJSON(url,   
         
         function(jsonData){
             //Loop through json data returned by server
             for(let x in jsonData){
-                    let payload = {
-                      "id":jsonData[x].id,
-                      "name":jsonData[x].name,
-                      "age":jsonData[x].age,
-                      "species":jsonData[x].species
-                    };
-                    dogArray.push(payload);
+                    dogArray.push(jsonData[x]);
             }
         this.setState({stateText: dogArray})
         }.bind(this)
     );
-
   }
 
     addDogBtn() {
@@ -94,7 +90,7 @@ class App extends Component {
         <input type="button" id="getDog" value="Get Dog"/><br/>
         <input type="button" id="updateDog" value="Edit Dog"/><br/>
         <input type="button" id="deleteDog" value="Delete Dog"/><br/>
-        <input type="button" id="allDogs" value="All Dogs"/><br/>
+        <input type="button" id="allDogs" onClick={this.allDogs.bind(this)} value="All Dogs"/><br/>
         
         <div id="dogContainer">
           {

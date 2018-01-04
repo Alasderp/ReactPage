@@ -9,7 +9,7 @@ import registerServiceWorker from './registerServiceWorker';
 //A property is also being passed down to App component
 let page = (
   <div>
-    <App exampleProp="Hello there my friends"/>  
+    <App exampleProp="Hello there my friends" baseURL="http://localhost:3001/"/>  
     <Button/>
   </div>
 );
