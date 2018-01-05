@@ -15,25 +15,44 @@ class App extends Component {
 
   }
 
+  validateTextBoxes(){
+
+      let id = document.getElementById("idInput").value;
+      let name = document.getElementById("nameInput").value;
+      let age = document.getElementById("ageInput").value;
+      let breed = document.getElementById("breedInput").value;
+
+      if(id.trim() === "" || id.trim() === "" || id.trim() === "" || id.trim() === ""){
+        alert("All fields must have entries");
+        return false;
+      }
+
+      return true;
+
+  }
+
   allDogs(){
 
-    let dogArray = [];
+  
+      let dogArray = [];
 
-    let url = this.props.baseURL + "api/dog";
+      let url = this.props.baseURL + "api/dog";
 
-    $.getJSON(url,   
-        
-        function(jsonData){
-            //Loop through json data returned by server
-            for(let x in jsonData){
-                    dogArray.push(jsonData[x]);
-            }
-        this.setState({stateText: dogArray})
-        }.bind(this)
-    );
+      $.getJSON(url,   
+          
+          function(jsonData){
+              //Loop through json data returned by server
+              for(let x in jsonData){
+                      dogArray.push(jsonData[x]);
+              }
+          this.setState({stateText: dogArray})
+          }.bind(this)
+      );
   }
 
     addDogBtn() {
+
+    if(this.validateTextBoxes()){
       //Get values from text boxes
       let id = document.getElementById("idInput").value;
       let name = document.getElementById("nameInput").value;
@@ -48,9 +67,10 @@ class App extends Component {
         "species":breed
       };
       
-    let url = this.props.baseURL + "api/dog/add";
+      let url = this.props.baseURL + "api/dog/add";
 
-    $.post(url,payload);
+      $.post(url,payload);
+    }
 
     }
 
