@@ -33,7 +33,6 @@ class App extends Component {
 
   allDogs(){
 
-  
       let dogArray = [];
 
       let url = this.props.baseURL + "api/dog";
@@ -52,6 +51,7 @@ class App extends Component {
 
     addDogBtn() {
 
+    //If textboxes have been validated successfuly
     if(this.validateTextBoxes()){
       //Get values from text boxes
       let id = document.getElementById("idInput").value;
@@ -85,15 +85,22 @@ class App extends Component {
         settings,
       );
       */}
-      let fetchData = {
-        method: 'DELETE'
-      };
+      if(id.trim() === ""){
+        alert("ID field requires an entry");
+      }
+      else{
+        let fetchData = {
+          method: 'DELETE'
+        };
 
-      fetch(url, fetchData);
+        fetch(url, fetchData);
+      }
 
   }
 
   editDog(){
+
+    if(this.validateTextBoxes()){
       let id = $("#idInput").val();
       let url = this.props.baseURL + "api/updateDog/" + id;
 
@@ -117,10 +124,40 @@ class App extends Component {
       fetch(url, fetchData).then((response)=>{
         this.allDogs();
       });
+
+    }
       
   }
 
-    
+  getOneDog(){
+
+      let id = $("#idInput").val();
+      let url = this.props.baseURL + "api/dog/" + id;
+
+      //Check if id field has an entry
+      if(id.trim() === ""){
+        alert("ID field requires an entry");
+      }
+      else{
+        fetch(url)
+        .then(function(response){
+            //If a 2xx response is received return the response as JSON
+            if(response.ok){  
+              return response.json();  
+            }
+            //Throw an error otherwise and jump to the catch statement
+            throw Error(response.statusText);
+        })
+        .then(function(response){
+          //Do stuff with the JSON
+          alert("Name: " + response.name + " Age: " + response.age + " Breed: " + response.species);
+        })
+        .catch(function(error){
+          console.log("Request Failed: " + error.message);
+        });
+      }
+  
+  }
 
   render() {
     return (
@@ -133,8 +170,8 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
           {/*Access the property passed down and place it on page*/}
           <br/>{this.props.exampleProp}
-          </p>
-          <br/>
+        </p>
+        <br/>
 
         <audio controls>
           <source src={song} type="audio/mpeg"/>
@@ -149,7 +186,7 @@ class App extends Component {
         Breed:
         <input id="breedInput" type="text"/><br/>
         <input type="button" id="addDog" value="Add dog" onClick={this.addDogBtn.bind(this)}/><br/>
-        <input type="button" id="getDog" value="Get Dog"/><br/>
+        <input type="button" id="getDog" value="Get Dog" onClick={this.getOneDog.bind(this)}/><br/>
         <input type="button" id="updateDog" value="Edit Dog" onClick={this.editDog.bind(this)}/><br/>
         <input type="button" id="deleteDog" value="Delete Dog" onClick={this.deleteDog.bind(this)}/><br/>
         <input type="button" id="allDogs" value="All Dogs" onClick={this.allDogs.bind(this)}/><br/>
