@@ -90,12 +90,14 @@ class App extends Component {
       let fetchData = {
         method: 'PUT',
         headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: payload
       };
-      fetch(url, fetchData).then(response => response.json());
+      fetch(url, fetchData).then((response)=>{
+        this.allDogs();
+      });
+      
   }
 
     
