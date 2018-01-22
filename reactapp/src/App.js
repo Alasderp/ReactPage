@@ -3,6 +3,7 @@ import logo from './logo.png';
 import song from './National Anthem of USSR.mp3'
 import './App.css';
 import $ from 'jquery'; 
+const json = require('./file.json');
 
 class App extends Component {
 
@@ -12,6 +13,8 @@ class App extends Component {
     this.state = {
       stateText:[]
     };
+
+    alert(json.data);
 
   }
 
